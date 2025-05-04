@@ -4,7 +4,7 @@
 NAMO-LLM is a novel sampling-based planner designed to address Navigation Among Movable Obstacles (NAMO) problems in highly cluttered environments. The planner aims to guide the robot in incrementally relocating obstacles until a collision-free path to the goal region is found.
 
 ## Requirements:
-* [Python >=3.6](https://www.python.org/downloads/)
+* [Python >=3.7](https://www.python.org/downloads/)
 * [Shapely](https://github.com/Toblerity/Shapely)
 * [matplotlib](https://matplotlib.org)
 * [openai](https://platform.openai.com/docs/overview)
@@ -17,8 +17,8 @@ NAMO-LLM is a novel sampling-based planner designed to address Navigation Among 
 ## Custom Modules
 - `api.py`: Local module for accessing the **ChatGPT API**. You must implement this and add your API key.
 - `gemini.py`: Local module for accessing the **Gemini API**. You must implement this and add your API key.
-- `rrt.py`: Module implementing RRT path validation (used in `rrt_env.py`).
-- `obs.py`: Contains the `Obs` class, defining obstacle geometry (used in `rrt_env.py`).
+- `rrt.py`: Module implementing RRT path validation.
+- `obs.py`: Contains the `Obs` class, defining obstacle geometry.
   
 ## System Configuration
 - OS: macOS 13
@@ -30,15 +30,14 @@ NAMO-LLM is a novel sampling-based planner designed to address Navigation Among 
 
 | File          | Description |
 |---------------|-------------|
-| `env.py`      | Implements Cases 1–5 using a hybrid LLM + sampling planner for NAMO.|
-| `rrt_env.py`  | Implements Case 6, which includes **RRT-based validation** for obstacle movement feasibility. |
+| `main.py`      | Implements Cases 1–6 using a hybrid LLM + sampling planner for NAMO.|
 | `api.py` / `gemini.py` | Interface modules to call ChatGPT or Gemini for selecting obstacles to move. |
 | `rrt.py`      | Implements a classical RRT planner to validate the proposed obstacle movement. |
 | `obs.py`      | Defines the `Obs` class for obstacle geometry. |
 
 ## Inputs and Parameters
 
-All inputs are **defined directly in the code** (in `__main__` section of `env.py` and `rrt_env.py`):
+All inputs are **defined directly in the code** (in `__main__` section of `main.py`):
 
 ### Common Inputs:
 - **Environment Geometry** (`area`) – defined as a polygon.
@@ -47,10 +46,10 @@ All inputs are **defined directly in the code** (in `__main__` section of `env.p
 - **Obstacles** (`Obs(x, y, l, d, θ)`) – defined by center, length, width, and orientation.
 
 ### Case Switching:
-You can toggle between different cases by **commenting/uncommenting** the corresponding blocks in `env.py`.  
-- **Cases 1–2**: Area with 100–200 obstacles, goal near the center.
+You can toggle between different cases by **commenting/uncommenting** the corresponding blocks in `main.py`.  
+- **Cases 1–4**: Area with 50-100 obstacles, goal near the center.
 - **Case 5**: Dense obstacles near the goal corner.
-- **Case 6 (in `rrt_env.py`)**: Complex corridor + RRT validation.
+- **Case 6**: Complex layout.
 
 ### LLM Settings:
 - `prob1` – the probability to expand the highest-valued node in the tree.
@@ -65,8 +64,7 @@ Replace `"Your API Key"` in `api.py` and `gemini.py` with your actual keys. See:
 To run NAMO-LLM with default test cases:
 
 ```bash
-python env.py       # For Cases 1–5
-python rrt_env.py   # For Case 6 (with RRT validation)
+python main.py       # For Cases 1–6
 ```
 ## Output
 

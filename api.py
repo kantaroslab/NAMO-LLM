@@ -55,7 +55,7 @@ def api_Mi(area, N, all_obs, adj_obs, id_list, x_goal, i):
                     DO NOT include any additional analysis or explanation in your output."
             }
 
-            # Edit the output requirement to change the value of K. The following is the output requirement for K=2
+            # # Edit the output requirement to change the value of K. The following is the output requirement for K=2
             # {
             # "type": "text",
             # "text": "Output Requirement: Your output MUST be a list containing the names of two selected obstacles, formatted as: ['obs1', 'obs2'].\
